@@ -14,13 +14,18 @@
         <title>EatFood</title>
     </head>
     <body>
-        <body>
+        <body class="d-flex flex-column min-vh-100">
             <nav class="navbar navbar-light bg-light">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="/">
-                        <img src="/images/EatFood.jpg" alt="Logo" width="50" height="50" class="d-inline-block align-text-top rounded" />
+                        <img src="/images/logo.jpg" alt="Logo" width="50" height="50" class="d-inline-block align-text-top rounded" />
                         EatFood
                     </a>
+
+                    <form action="/restaurants" method="post">
+                        <input type="text" name="restaurantName" />
+                        <button class="btn btn-outline-danger" type="submit">Search</button>
+                    </form>
 
                     <ul class="list-group list-group-horizontal">
                         <li class="list-group-item"><a class="text-muted text-decoration-none" href="/">Home</a></li>

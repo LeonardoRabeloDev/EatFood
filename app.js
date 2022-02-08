@@ -13,6 +13,7 @@ mongoose.connect("mongodb://localhost:27017/eatFoodDB");
 
 const restaurantSchema = new mongoose.Schema({
 	name: String,
+	rating: Number,
 	description: String,
 });
 
@@ -22,13 +23,22 @@ app.get("/", (req, res) => {
 	res.render("home");
 });
 
-app.get("/restaurants/:query", (req, res) => {
-	const query = req.params.query;
+app.post("/restaurants", (req, res) => {
+	const restaurantName = req.body.restaurantName;
+	console.log(restaurantName);
 
-	Restaurant.findOne({ name: query }, (err, foundRestaurant) => {
+	Restaurant.findOne({ name: restaurantName }, (err, foundRestaurant) => {
 		if (err) console.log(err);
 		else {
-			res.send(foundRestaurant);
+			if (foundRestaurant) {
+				res.render("restaurant", {
+					restaurantName: foundRestaurant.name,
+					restaurantRating: foundRestaurant.rating,
+					restaurantDescription: foundRestaurant.description,
+				});
+			} else {
+				console.log("No restaurant found.");
+			}
 		}
 	});
 });
@@ -42,15 +52,26 @@ app.route("/register")
 		const restaurantName = req.body.name;
 		const resutarantDescription = req.body.description;
 
-		const newRestaurant = new Restaurant({
-			name: restaurantName,
-			description: resutarantDescription,
+		Restaurant.findOne({ name: restaurantName }, (err, foundRestaurant) => {
+			if (err) console.log(err);
+			else {
+				if (foundRestaurant) {
+					console.log("Restaurant name already exists.");
+				} else {
+					const newRestaurant = new Restaurant({
+						name: restaurantName,
+						description: resutarantDescription,
+					});
+
+					newRestaurant.save(err => {
+						if (err) console.log(err);
+						else console.log("Successfully registered restaurant.");
+					});
+				}
+			}
 		});
 
-		newRestaurant.save(err => {
-			if (err) console.log(err);
-			else console.log("Successfully registered restaurant.");
-		});
+		res.redirect("/");
 	});
 
 app.listen(3000, () => {
