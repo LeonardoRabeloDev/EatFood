@@ -2,4 +2,12 @@
 
 <h1 class="text-danger display-1">Publish your restaurant and gather some clients!</h1>
 
+    <main>
+        <% restaurants.forEach(restaurant => { %>
+            <h2> <%= restaurant.name %> </h2>
+            <p> <%= restaurant.rating %> </p>
+            <p> <%= restaurant.description %> </p>
+        <% }); %>
+    </main>
+
 <%- include("partials/footer") %>

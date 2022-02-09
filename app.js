@@ -20,24 +20,22 @@ const restaurantSchema = new mongoose.Schema({
 const Restaurant = new mongoose.model("Restaurant", restaurantSchema);
 
 app.get("/", (req, res) => {
-	res.render("home");
+	Restaurant.find({}, (err, foundRestaurants) => {
+		if (err) console.log(err);
+		else {
+			res.render("home", { restaurants: foundRestaurants });
+		}
+	});
 });
 
-app.post("/restaurants", (req, res) => {
-	const restaurantName = req.body.restaurantName;
-	console.log(restaurantName);
-
-	Restaurant.findOne({ name: restaurantName }, (err, foundRestaurant) => {
+app.get("/restaurants", (req, res) => {
+	Restaurant.findOne({ name: req.query.restaurantName }, (err, foundRestaurant) => {
 		if (err) console.log(err);
 		else {
 			if (foundRestaurant) {
-				res.render("restaurant", {
-					restaurantName: foundRestaurant.name,
-					restaurantRating: foundRestaurant.rating,
-					restaurantDescription: foundRestaurant.description,
-				});
+				res.render("restaurant", { restaurant: foundRestaurant });
 			} else {
-				console.log("No restaurant found.");
+				res.redirect("/");
 			}
 		}
 	});
@@ -49,9 +47,6 @@ app.route("/register")
 	})
 
 	.post((req, res) => {
-		const restaurantName = req.body.name;
-		const resutarantDescription = req.body.description;
-
 		Restaurant.findOne({ name: restaurantName }, (err, foundRestaurant) => {
 			if (err) console.log(err);
 			else {
@@ -59,8 +54,9 @@ app.route("/register")
 					console.log("Restaurant name already exists.");
 				} else {
 					const newRestaurant = new Restaurant({
-						name: restaurantName,
-						description: resutarantDescription,
+						name: req.body.name,
+						rating: req.body.rating,
+						description: req.body.description,
 					});
 
 					newRestaurant.save(err => {
@@ -73,6 +69,14 @@ app.route("/register")
 
 		res.redirect("/");
 	});
+
+app.get("/contact", (req, res) => {
+	res.render("contact");
+});
+
+app.get("/about", (req, res) => {
+	res.render("about");
+});
 
 app.listen(3000, () => {
 	console.log("Server is running on port 3000.");

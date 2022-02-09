@@ -1,58 +1,70 @@
 <%- include("partials/header") %>
 
+		<h1 class="mx-auto mt-4">Enter Restaurant Data</h1>
+
 		<form action="/register" method="post">
-			<label>Title</label>
-			<input type="text" name="name" />
-			<label>Rating</label>
+				<div class="d-flex flex-column mx-auto">
+					<input class="" placeholder="Title" type="text" name="name" />
+					<br>
+					<div class="d-flex">
+					<label>Rating:</label>
+						<div onclick="ratingStars('1')">
+							<label>
+								<i class="far fa-star" aria-hidden="true"></i>
+							</label>
+							<input id="s-1" type="radio" value="1" name="rating">
+						</div>
+						<div onclick="ratingStars('2')">
+							<label>
+								<i class="far fa-star" aria-hidden="true"></i>
+							</label>
+							<input id="s-2" type="radio" value="2" name="rating">
+						</div>
+						<div onclick="ratingStars('3')">
+							<label>
+								<i class="far fa-star" aria-hidden="true"></i>
+							</label>
+							<input id="s-3" type="radio" value="3" name="rating">
+						</div>
+						<div onclick="ratingStars('4')">
+							<label>
+								<i class="far fa-star" aria-hidden="true"></i>
+							</label>
+							<input id="s-4" type="radio" value="4" name="rating">
+						</div>
+						<div onclick="ratingStars('5')">
+							<label>
+								<i class="far fa-star" aria-hidden="true"></i>
+							</label>
+							<input id="s-5" type="radio" value="5" name="rating">
+						</div>
+					</div>
+					<br>
+					<textarea class="mx-atuo" placeholder="Description" name="description" cols="50" rows="4"></textarea>
+					<br>
+				</div>
+				<button class="mx-auto" type="submit">Submit</button>
+			</form>
 
-			<div class="d-flex">
-				<div onclick="toggleStar('rating-1')">
-					<label>
-						<i class="far fa-star" id="rating-1" aria-hidden="true"></i>
-					</label>
-					<input type="radio" name="rating">
-				</div>
-				<div onclick="toggleStar('rating-2')">
-					<label>
-						<i class="far fa-star" id="rating-2" aria-hidden="true"></i>
-					</label>
-					<input type="radio" name="rating">
-				</div>
-				<div onclick="toggleStar('rating-3')">
-					<label>
-						<i class="far fa-star" id="rating-3" aria-hidden="true"></i>
-					</label>
-					<input type="radio" name="rating">
-				</div>
-				<div onclick="toggleStar('rating-4')">
-					<label>
-						<i class="far fa-star" id="rating-4" aria-hidden="true"></i>
-					</label>
-					<input type="radio" name="rating">
-				</div>
-				<div onclick="toggleStar('rating-5')">
-					<label>
-						<i class="far fa-star" id="rating-5" aria-hidden="true"></i>
-					</label>
-					<input type="radio" name="rating">
-				</div>
-			</div>
-
-			<label>Description</label>
-			<input type="text" name="description" />
-			<button type="submit">Submit</button>
-		</form>
 
 		<script>
-			function toggleStar(id) {
-				const star = document.getElementById(id);
-				if (star.classList.contains("far")) {
-					star.classList.remove("far");
-					star.classList.add("fa")
-				} else {
-					star.classList.remove("fa")
-					star.classList.add("far")
+			function ratingStars(starNumber) {
+				const starsArray = document.querySelectorAll("label i");
+				starsArray.forEach(star => {
+					star.classList.replace("fa", "far");
+				});
+				
+				for (let i = 0; i < starNumber ; i++) {
+					starsArray[i].classList.replace("far", "fa");
 				}
+
+				const inputs = document.querySelectorAll("input[type='radio'");
+				inputs.forEach(input => {
+					input.checked = false;
+				});
+
+				document.querySelector(`input#s-${starNumber}`).checked = true;
 			}
 		</script>
+
 <%- include("partials/footer") %>
