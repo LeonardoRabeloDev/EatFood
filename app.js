@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
+const multer = require("multer");
 
 const app = express();
 
@@ -15,7 +16,22 @@ const restaurantSchema = new mongoose.Schema({
 	name: String,
 	rating: Number,
 	description: String,
+	image: {
+		data: Buffer,
+		contentType: String,
+	},
 });
+
+const storage = multer.diskStorage({
+	destination: (req, file, cb) => {
+		cb(null, "uploads");
+	},
+	fileName: (req, file, cb) => {
+		cb(null, file.fieldname + "-" + Date.now());
+	},
+});
+
+const upload = multer({ storage });
 
 const Restaurant = new mongoose.model("Restaurant", restaurantSchema);
 
@@ -46,8 +62,9 @@ app.route("/register")
 		res.render("register");
 	})
 
-	.post((req, res) => {
-		Restaurant.findOne({ name: restaurantName }, (err, foundRestaurant) => {
+	.post(upload.single("image"), (req, res) => {
+		console.log(req.body.image);
+		Restaurant.findOne({ name: req.body.restaurantName }, (err, foundRestaurant) => {
 			if (err) console.log(err);
 			else {
 				if (foundRestaurant) {
@@ -57,6 +74,9 @@ app.route("/register")
 						name: req.body.name,
 						rating: req.body.rating,
 						description: req.body.description,
+						// image: {
+						// 	req.body.image,
+						// }
 					});
 
 					newRestaurant.save(err => {

@@ -11,7 +11,12 @@
         <!-- Font Awesome CDN -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-        <!-- CSS -->
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,400;1,700&display=swap" rel="stylesheet">
+
+        <!-- CSS Stylesheet -->
         <link rel="stylesheet" href="/css/style.css" />
 
         <title>EatFood</title>
@@ -19,21 +24,24 @@
         <body class="d-flex flex-column min-vh-100">
             <nav class="navbar navbar-light bg-light border-bottom border-danger">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="/">
-                        <img src="/images/logo.jpg" alt="Logo" width="50" height="50" class="d-inline-block align-text-top rounded" />
-                        EatFood
+
+                    <a class="navbar-brand p-0" href="/">
+                        <div class="d-flex">
+                            <img src="/images/logo.jpg" alt="Logo" width="50" height="50" class="rounded" />
+                            <span class="align-self-center ms-2">EatFood</span>
+                        </div>
                     </a>
 
-                    <form action="/restaurants" method="get">
-                        <input type="text" name="restaurantName" />
+                    <form class="d-flex" action="/restaurants" method="get">
+                        <input class="form-control me-4" type="text" name="restaurantName" />
                         <button class="btn btn-outline-danger" type="submit">Search</button>
                     </form>
 
-                    <ul class="list-group list-group-horizontal">
-                        <li class="list-group-item"><a class="text-muted text-decoration-none" href="/">Home</a></li>
-                        <li class="list-group-item"><a class="text-muted text-decoration-none" href="/register">Register</a></li>
-                        <li class="list-group-item"><a class="text-muted text-decoration-none" href="/contact">Contact</a></li>
-                        <li class="list-group-item"><a class="text-muted text-decoration-none" href="/about">About</a></li>
+                    <ul class="list-group list-group-horizontal me-3">
+                        <li class="list-group-item list-box"><a class="text-muted text-decoration-none list-text" href="/">Home</a></li>
+                        <li class="list-group-item list-box"><a class="text-muted text-decoration-none list-text" href="/register">Register</a></li>
+                        <li class="list-group-item list-box"><a class="text-muted text-decoration-none list-text" href="/about">About</a></li>
                     </ul>
+
                 </div>
             </nav>

@@ -1,13 +1,36 @@
 <%- include("partials/header") %>
 
-<h1 class="text-danger display-1">Publish your restaurant and gather some clients!</h1>
+        <h1 class="text-danger display-1 text-center mb-5">Publish your restaurant and gather some clients!</h1>
 
-    <main>
-        <% restaurants.forEach(restaurant => { %>
-            <h2> <%= restaurant.name %> </h2>
-            <p> <%= restaurant.rating %> </p>
-            <p> <%= restaurant.description %> </p>
-        <% }); %>
-    </main>
+        <main class="container-fluid">
+            <div class="row mx-3">
+                    <% restaurants.forEach(restaurant => { %>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="d-flex flex-column align-items-center border border-2  my-3">
+                                <a class="text-decoration-none" href="/restaurants?restaurantName=<%= restaurant.name %>">
+                                    <h2 class="mt-2"><%= restaurant.name %></h2>
+                                </a>
+                                <div class="mb-2">
+                                    <% for (let i = 0; i < 5; i++) { %>
+                                        <% if (i < restaurant.rating) { %>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                        <% } else { %>
+                                            <i class="far fa-star" aria-hidden="true"></i>
+                                        <% } %>
+                                    <% } %>
+                                </div>
+                                <img src="/images/placeholder.png" alt="Restaurant image" width="256px" height="256px" />
+                                <p class="fs-4"><%= restaurant.description %></p>
+                            </div>
+                        </div>
+                    <% }); %>
+            </div>
+        </main>
+
+        <script>
+            function goToRestaurant() {
+                
+            }
+        </script>
 
 <%- include("partials/footer") %>

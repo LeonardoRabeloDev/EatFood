@@ -1,55 +1,54 @@
 <%- include("partials/header") %>
 
+		<div class="container-fluid">
+		</div>
 		<h1 class="mx-auto mt-4">Enter Restaurant Data</h1>
 
-		<form action="/register" method="post">
-				<div class="d-flex flex-column mx-auto">
-					<input class="" placeholder="Title" type="text" name="name" />
-					<br>
-					<div class="d-flex">
-					<label>Rating:</label>
-						<div onclick="ratingStars('1')">
-							<label>
-								<i class="far fa-star" aria-hidden="true"></i>
-							</label>
-							<input id="s-1" type="radio" value="1" name="rating">
-						</div>
-						<div onclick="ratingStars('2')">
-							<label>
-								<i class="far fa-star" aria-hidden="true"></i>
-							</label>
-							<input id="s-2" type="radio" value="2" name="rating">
-						</div>
-						<div onclick="ratingStars('3')">
-							<label>
-								<i class="far fa-star" aria-hidden="true"></i>
-							</label>
-							<input id="s-3" type="radio" value="3" name="rating">
-						</div>
-						<div onclick="ratingStars('4')">
-							<label>
-								<i class="far fa-star" aria-hidden="true"></i>
-							</label>
-							<input id="s-4" type="radio" value="4" name="rating">
-						</div>
-						<div onclick="ratingStars('5')">
-							<label>
-								<i class="far fa-star" aria-hidden="true"></i>
-							</label>
-							<input id="s-5" type="radio" value="5" name="rating">
-						</div>
-					</div>
-					<br>
-					<textarea class="mx-atuo" placeholder="Description" name="description" cols="50" rows="4"></textarea>
-					<br>
+		<div class="mx-sm-auto mx-5 my-4">
+			<form action="/register" method="post">
+				<div class="mb-3">
+					<label for="title">Title:</label>
+					<input class="form-control" id="title" type="text" name="name" />
 				</div>
-				<button class="mx-auto" type="submit">Submit</button>
+				<div class="mb-3">
+					<label for="description">Description:</label>
+					<textarea class="form-control" id="description" name="description" cols="50" rows="4"></textarea>
+				</div>
+				<div class="d-flex mb-3">
+					<label class="me-2">Rating:</label>
+					<div onclick="ratingStars('1')">
+						<i class="far fa-star" aria-hidden="true"></i>
+						<input id="s-1" type="radio" value="1" name="rating">
+					</div>
+					<div onclick="ratingStars('2')">
+						<i class="far fa-star" aria-hidden="true"></i>
+						<input id="s-2" type="radio" value="2" name="rating">
+					</div>
+					<div onclick="ratingStars('3')">
+						<i class="far fa-star" aria-hidden="true"></i>
+						<input id="s-3" type="radio" value="3" name="rating">
+					</div>
+					<div onclick="ratingStars('4')">
+						<i class="far fa-star" aria-hidden="true"></i>
+						<input id="s-4" type="radio" value="4" name="rating">
+					</div>
+					<div onclick="ratingStars('5')">
+						<i class="far fa-star" aria-hidden="true"></i>
+						<input id="s-5" type="radio" value="5" name="rating">
+					</div>
+				</div>
+				<div class="mb-3">
+					<label class="mb-1" for="image">Choose a image to your restaurant:</label>
+					<input class="form-control" type="file" name="image" id="image" accept="image/png, image/jpg, image/jpeg" />
+				</div>
+				<button class="btn btn-danger" type="submit">Submit</button>
 			</form>
+		</div>
 
 
 		<script>
 			function ratingStars(starNumber) {
-				const starsArray = document.querySelectorAll("label i");
+				const starsArray = document.querySelectorAll("div > i");
 				starsArray.forEach(star => {
 					star.classList.replace("fa", "far");
 				});
