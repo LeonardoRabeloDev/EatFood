@@ -2,7 +2,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
-const multer = require("multer");
 
 const app = express();
 
@@ -22,17 +21,6 @@ const restaurantSchema = new mongoose.Schema({
 	},
 });
 
-const storage = multer.diskStorage({
-	destination: (req, file, cb) => {
-		cb(null, "uploads");
-	},
-	fileName: (req, file, cb) => {
-		cb(null, file.fieldname + "-" + Date.now());
-	},
-});
-
-const upload = multer({ storage });
-
 const Restaurant = new mongoose.model("Restaurant", restaurantSchema);
 
 app.get("/", (req, res) => {
@@ -48,11 +36,7 @@ app.get("/restaurants", (req, res) => {
 	Restaurant.findOne({ name: req.query.restaurantName }, (err, foundRestaurant) => {
 		if (err) console.log(err);
 		else {
-			if (foundRestaurant) {
-				res.render("restaurant", { restaurant: foundRestaurant });
-			} else {
-				res.redirect("/");
-			}
+			res.render("restaurant", { restaurant: foundRestaurant });
 		}
 	});
 });
@@ -62,7 +46,7 @@ app.route("/register")
 		res.render("register");
 	})
 
-	.post(upload.single("image"), (req, res) => {
+	.post((req, res) => {
 		console.log(req.body.image);
 		Restaurant.findOne({ name: req.body.restaurantName }, (err, foundRestaurant) => {
 			if (err) console.log(err);
@@ -74,9 +58,6 @@ app.route("/register")
 						name: req.body.name,
 						rating: req.body.rating,
 						description: req.body.description,
-						// image: {
-						// 	req.body.image,
-						// }
 					});
 
 					newRestaurant.save(err => {
