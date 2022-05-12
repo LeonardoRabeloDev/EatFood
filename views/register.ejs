@@ -5,7 +5,7 @@
 		<h1 class="mx-auto mt-4">Enter Restaurant Data</h1>
 
 		<div class="mx-sm-auto mx-5 my-4">
-			<form action="/register" method="post">
+			<form action="/register" method="post" enctype="multipart/form-data">
 				<div class="mb-3">
 					<label for="title">Title:</label>
 					<input class="form-control" id="title" type="text" name="name" />
@@ -45,25 +45,6 @@
 			</form>
 		</div>
 
-
-		<script>
-			function ratingStars(starNumber) {
-				const starsArray = document.querySelectorAll("div > i");
-				starsArray.forEach(star => {
-					star.classList.replace("fa", "far");
-				});
-				
-				for (let i = 0; i < starNumber ; i++) {
-					starsArray[i].classList.replace("far", "fa");
-				}
-
-				const inputs = document.querySelectorAll("input[type='radio'");
-				inputs.forEach(input => {
-					input.checked = false;
-				});
-
-				document.querySelector(`input#s-${starNumber}`).checked = true;
-			}
-		</script>
+		<script src="/js/index.js"></script>
 
 <%- include("partials/footer") %>
