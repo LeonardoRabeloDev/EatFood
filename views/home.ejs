@@ -19,7 +19,11 @@
                                     <% } %>
                                 <% } %>
                             </div>
-                            <img src="/images/placeholder.png" alt="Restaurant image" width="256px" height="256px" />
+                            <% if (restaurant.image) { %>
+                                <img src="/images/<%= restaurant.image %>" alt="Restaurant image" width="256px" height="256px" />
+                            <% } else { %>
+                                <img src="/images/placeholder.png" alt="Restaurant image" width="256px" height="256px" />
+                            <% } %>
                             <p class="fs-4"><%= restaurant.description %></p>
                         </div>
                     </div>

@@ -3,6 +3,7 @@ const multer = require("multer");
 const sharp = require("sharp");
 const Restaurant = require("../models/restaurant");
 const router = new express.Router();
+const path = require("path");
 
 router.get("/", (req, res) => {
 	Restaurant.find({}, (err, foundRestaurants) => {
@@ -26,7 +27,17 @@ router.get("/register", (req, res) => {
 	res.render("register");
 });
 
+const storage = multer.diskStorage({
+	destination: (req, file, cb) => {
+		cb(null, "./public/images");
+	},
+	filename: (req, file, cb) => {
+		cb(null, file.originalname);
+	}
+});
+
 const upload = multer({
+	storage,
 	limits: {
 		fileSize: 1000000,
 	},
@@ -44,19 +55,31 @@ router.post("/register", upload.single("image"), (req, res) => {
 			if (foundRestaurant) {
 				console.log("Restaurant name already exists.");
 			} else {
-				const buffer = await sharp(req.file.buffer).resize({ width: 250, height: 250 }).png().toBuffer();
-				
-				const newRestaurant = new Restaurant({
-					name: req.body.name,
-					rating: req.body.rating,
-					description: req.body.description,
-					image: buffer,
-				});
+				try {
+					const newRestaurant = new Restaurant({
+						name: req.body.name,
+						rating: req.body.rating,
+						description: req.body.description,
+						image: req.file.filename,
+					});
 
-				newRestaurant.save(err => {
-					if (err) console.log(err);
-					else console.log("Successfully registered restaurant.");
-				});
+					newRestaurant.save(err => {
+						if (err) console.log(err);
+						else console.log("Successfully registered restaurant.");
+					});
+				} catch (err) {
+					const newRestaurant = new Restaurant({
+						name: req.body.name,
+						rating: req.body.rating,
+						description: req.body.description,
+					});
+
+					newRestaurant.save(err => {
+						if (err) console.log(err);
+						else console.log("Successfully registered restaurant.");
+					});
+				}
+
 			}
 		}
 	});

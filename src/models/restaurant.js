@@ -5,12 +5,7 @@ const restaurantSchema = new mongoose.Schema(
 		name: String,
 		rating: Number,
 		description: String,
-		image: {
-			type: Buffer,
-		},
-	},
-	{
-		timestamps: true,
+		image: String,
 	},
 );
 
