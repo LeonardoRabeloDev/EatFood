@@ -1,25 +1,25 @@
 <%- include("partials/header") %>
 
-<main>
-    <% if (restaurant) { %>
-        <div class="d-flex flex-column align-content-center py-auto">
-            <h1 class="mx-auto"><%= restaurant.name %></h1>
-            <p class="mx-auto"><%= restaurant.rating %></p>
-            <p class="mx-auto"><%= restaurant.description %></p>
-            
-            <button class="btn btn-danger btn-lg mx-auto" type="button">
-                <a class="text-muted text-decoration-none" href="/">Go back</a>
-            </button>
-        </div>
-    <% } else { %>
-        <div class="d-flex flex-column align-content-center py-auto">
-            <h1 class="mx-auto">No restaurant found</h1>
-            
-            <button class="btn btn-danger btn-lg mx-auto" type="button">
-                <a class="text-muted text-decoration-none" href="/">Go back</a>
-            </button>
-        </div>
-    <% } %>
-</main>
+    <main>
+        <% if (restaurant) { %>
+            <div class="d-flex flex-column align-content-center py-auto">
+                <h1 class="mx-auto"><%= restaurant.name %></h1>
+                <p class="mx-auto"><%= restaurant.rating %></p>
+                <p class="mx-auto"><%= restaurant.description %></p>
+                
+                <button class="btn btn-danger btn-lg mx-auto" type="button">
+                    <a class="text-muted text-decoration-none" href="/">Go back</a>
+                </button>
+            </div>
+        <% } else { %>
+            <div class="d-flex flex-column align-content-center py-auto">
+                <h1 class="mx-auto">No restaurant found</h1>
+                
+                <button class="btn btn-danger btn-lg mx-auto" type="button">
+                    <a class="text-muted text-decoration-none" href="/">Go back</a>
+                </button>
+            </div>
+        <% } %>
+    </main>
 
 <%- include("partials/footer") %>

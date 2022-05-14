@@ -49,11 +49,11 @@ const upload = multer({
 });
 
 router.post("/register", upload.single("image"), (req, res) => {
-	Restaurant.findOne({ name: req.body.restaurantName }, async (err, foundRestaurant) => {
+	Restaurant.findOne({ name: req.body.name }, async (err, foundRestaurant) => {
 		if (err) console.log(err);
 		else {
-			if (foundRestaurant) {
-				console.log("Restaurant name already exists.");
+			if (foundRestaurant || !foundRestaurant.name) {
+				console.log("Restaurant already exists/is empty.");
 			} else {
 				try {
 					const newRestaurant = new Restaurant({
@@ -79,7 +79,6 @@ router.post("/register", upload.single("image"), (req, res) => {
 						else console.log("Successfully registered restaurant.");
 					});
 				}
-
 			}
 		}
 	});

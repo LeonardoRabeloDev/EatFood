@@ -15,3 +15,7 @@ function ratingStars(starNumber) {
 
 	document.querySelector(`input#s-${starNumber}`).checked = true;
 }
+
+function goToRestaurant(restaurantName) {
+	
+}
